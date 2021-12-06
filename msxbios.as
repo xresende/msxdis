@@ -31,58 +31,28 @@ BEGIN:                         ; MSX System Init
 
 0x0006    db   98h             ; Port address for VDP data read
 0x0007    db   98h             ; Port address for VDP data write
-
-_SYNCHR:
-
 0x0008    jp   SYNCHR
 0x000B    db   00h
-
-_RDSLT:
-
 0x000C    jp   RDSLT
 0x000F    db   00h
-
-_CHRGTR:
-
 0x0010    jp   CHRGTR
 0x0013    db   00h
-
-_WRSLT:
-
 0x0014    jp   WRSLT
 0x0017    db   00h
-
-_OUTDO:
-
 0x0018    jp   OUTDO           ; Output a char to the console or printer
 0x001B    db   00h
-
-_CALSLT:
-
 0x001C    jp   CALSLT
 0x001F    db   00h
-
-_DCOMPR:
-
 0x0020    jp   DCOMPR
 0x0023    db   00h
-
-_ENASLT:
-
 0x0024    jp   ENASLT
 0x0027    db   00h
-
-_GETYPR:
-
 0x0028    jp   GETYPR
 0x002B    db   11h
 0x002C    db   11h
 0x002D    db   00h
 0x002E    db   00h
 0x002F    db   00h
-
-_CALLF:
-
 0x0030    jp   CALLF
 0x0033    db   00h
 0x0034    db   00h
