@@ -2,7 +2,7 @@
 Disassembler for MSX
 
 ## Generate MSX BIOS assembler file
-Simply run target `msxbios` from Makefile, as in
+Copy a `EXPERT10.ROM`file to the repo folder and simply run target `msxbios` from Makefile:
 
 ```
 make msxbios
