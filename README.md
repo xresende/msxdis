@@ -1,4 +1,4 @@
-# msxdis
+# MSXDis
 Disassembler for MSX
 
 ## Generate MSX BIOS assembler file
