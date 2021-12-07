@@ -1,2 +1,2 @@
 msxbios:
-	python3 msxbios.py > msxbios.as
+	python3 msxbios.py > msxbios.asm

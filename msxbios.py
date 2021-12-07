@@ -26,11 +26,11 @@ from msxdis import MSXDisassembler
 
 def msxbios_begin(rom, beg, end):
     """."""
-    rom.add_line_comment(addr=beg, comment=[
+    rom.add_comment_line(addr=beg, comment=[
         'MSX BIOS',
         '========',
         '',
-        '. Symbol table by MSX.BIOS by ASCII Corp., 1983 (v3.44)',
+        '. Symbol table by MSX.BIOS, ASCII Corp., 1983 (v3.44)',
         '',
         '    file       : BIOHDR.MAC',
         '    use        : Restart calls and ROM entries table',
@@ -44,18 +44,22 @@ def msxbios_begin(rom, beg, end):
         '. Disassembled by Ximenes R. Resende (xresende@gmail.com)',
         '    file       : EXPERT10.ROM',
         '',
+        '',
+        'The following RST\'s (RST 0 thru RST 5) are reserved for BASIC',
+        'interpreter, RST 6 for inter-slot calls, and RST 7 for',
+        'hardware interrupt',
         ])
-    rom.add_line_comment(0x0006, comment=[
+    rom.add_comment_line(0x0006, comment=[
         '** VDP Information **',
         'Any program that access the VDP hardware directly',
         'should read the I/O port address found here, to be certain',
         'the software is compatible with future versions of the VDP',
         ])
 
-    rom.add_ins_comment(addr=0x0000, comment='Fail safe')
-    rom.add_ins_comment(addr=0x0001, comment='Find all connected RAM')
-    rom.add_ins_comment(addr=0x0006, comment='Port address for VDP data read')
-    rom.add_ins_comment(addr=0x0007, comment='Port address for VDP data write')
+    rom.add_comment_ins(addr=0x0000, comment='Fail safe')
+    rom.add_comment_ins(addr=0x0001, comment='Find all connected RAM')
+    rom.add_comment_ins(addr=0x0006, comment='Port address for VDP data read')
+    rom.add_comment_ins(addr=0x0007, comment='Port address for VDP data write')
     rom.add_dw(0x0004)
     rom.add_db([
         0x0006, 0x0007, 0x000B, 0x000F, 0x0013, 
@@ -67,7 +71,7 @@ def msxbios_begin(rom, beg, end):
 
 def msxbios_ioinij(rom, beg, end):
 
-    rom.add_line_comment(addr=beg, comment=[
+    rom.add_comment_line(addr=beg, comment=[
         '',
         'Following are used for I/O initializations',
         '',
@@ -77,7 +81,7 @@ def msxbios_ioinij(rom, beg, end):
 
 def msxbios_vdprmc(rom, beg, end):
 
-    rom.add_line_comment(addr=beg, comment=[
+    rom.add_comment_line(addr=beg, comment=[
         '',
         'The following entry points provide control of the ',
         'VDP\'s registers, screen mode settings, and memory block',
@@ -89,7 +93,7 @@ def msxbios_vdprmc(rom, beg, end):
 
 def msxbios_psgini(rom, beg, end):
 
-    rom.add_line_comment(addr=beg, comment=[
+    rom.add_comment_line(addr=beg, comment=[
         '',
         'The following entry points are used for PSG initialization, ',
         'read and write PSG registers, and PLAY statement execution.',
@@ -99,7 +103,7 @@ def msxbios_psgini(rom, beg, end):
 
 def msxbios_inpprt(rom, beg, end):
 
-    rom.add_line_comment(addr=beg, comment=[
+    rom.add_comment_line(addr=beg, comment=[
         '',
         'General INPUT and PRINT utilities.',
         '',
@@ -109,7 +113,7 @@ def msxbios_inpprt(rom, beg, end):
 
 def msxbios_joystk(rom, beg, end):
 
-    rom.add_line_comment(addr=beg, comment=[
+    rom.add_comment_line(addr=beg, comment=[
         '',
         'General INPUT and PRINT utilities.',
         '',
@@ -119,7 +123,7 @@ def msxbios_joystk(rom, beg, end):
 
 def msxbios_tapect(rom, beg, end):
 
-    rom.add_line_comment(addr=beg, comment=[
+    rom.add_comment_line(addr=beg, comment=[
         '',
         'Following are used to access the cassette tape, ',
         'data read/write, and motor on/off',
@@ -130,7 +134,7 @@ def msxbios_tapect(rom, beg, end):
 
 def msxbios_basicq(rom, beg, end):
 
-    rom.add_line_comment(addr=beg, comment=[
+    rom.add_comment_line(addr=beg, comment=[
         '',
         'BASIC queues',
         '',
@@ -140,20 +144,20 @@ def msxbios_basicq(rom, beg, end):
 
 def msxbios_basgrp(rom, beg, end):
 
-    rom.add_line_comment(addr=beg, comment=[
+    rom.add_comment_line(addr=beg, comment=[
         '',
         'For BASIC interpreter\'s GENGRP and ADVGRP modules use',
         '',
         ])
-    rom.add_ins_comment(addr=0x015C, comment='RESERVED FOR EXPANSION - start')
-    rom.add_ins_comment(addr=0x01B5, comment='RESERVED FOR EXPANSION - end')
+    rom.add_comment_ins(addr=0x015C, comment='RESERVED FOR EXPANSION - start')
+    rom.add_comment_ins(addr=0x01B5, comment='RESERVED FOR EXPANSION - end')
     rom.add_db(0x015C, 0x01B5)
     rom.disassemble(pc=beg, lastpc=end, nrbytes=None, print_addr=True)
 
 
 def msxbios_slotsm(rom, beg, end):
 
-    rom.add_line_comment(addr=beg, comment=[
+    rom.add_comment_line(addr=beg, comment=[
         '',
         'SLOTS',
         '',
@@ -214,7 +218,7 @@ def msxbios():
     
     # rom.disassemble(pc=0x0000, lastpc=0x008D, nrbytes=None, print_addr=True)
 
-    # rom.add_ins_comment(addr=0x01B6, comment='Calculate bit pattern and mask code')
+    # rom.add_comment_ins(addr=0x01B6, comment='Calculate bit pattern and mask code')
 
     # rom.disassemble(pc='RDSLT', lastpc=0x01C5, nrbytes=None, print_addr=True)
     # rom.disassemble(pc='RDESLT', lastpc=0x01CF, nrbytes=None, print_addr=True)
@@ -230,8 +234,8 @@ def msxbios():
     # rom.disassemble(pc='SELPRM', lastpc=0x02A2, nrbytes=None, print_addr=True)
     # rom.disassemble(pc='SELEXP', lastpc=0x02D6, nrbytes=None, print_addr=True)
 
-    # rom.add_skip('0x033B') # avoid replacing 0x0000 <-> _CHKRAM
-    # rom.add_skip('0x039E') # avoid replacing 0x0000 <-> _CHKRAM
+    # rom.add_symbol_skip('0x033B') # avoid replacing 0x0000 <-> _CHKRAM
+    # rom.add_symbol_skip('0x039E') # avoid replacing 0x0000 <-> _CHKRAM
     # rom.disassemble(pc='CHKRAM', lastpc=0x03F8, nrbytes=None, print_addr=True)
 
     

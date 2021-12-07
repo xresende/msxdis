@@ -2,7 +2,7 @@
           ; MSX BIOS
           ; ========
           ; 
-          ; . Symbol table by MSX.BIOS by ASCII Corp., 1983 (v3.44)
+          ; . Symbol table by MSX.BIOS, ASCII Corp., 1983 (v3.44)
           ; 
           ;     file       : BIOHDR.MAC
           ;     use        : Restart calls and ROM entries table
@@ -16,6 +16,10 @@
           ; . Disassembled by Ximenes R. Resende (xresende@gmail.com)
           ;     file       : EXPERT10.ROM
           ; 
+          ; 
+          ; The following RST's (RST 0 thru RST 5) are reserved for BASIC
+          ; interpreter, RST 6 for inter-slot calls, and RST 7 for
+          ; hardware interrupt
 
 
 BEGIN:                         ; MSX System Init

@@ -129,21 +129,22 @@ class MSXDisassembler:
         return len(self._memory)
 
     def add_symbol(self, addr, symbol, comment=None):
-        """."""
+        """Add an address to symbol convertion."""
         addr = MSXDisassembler._conv_pc2addr(addr)
         self._symbols[addr] = dict(symbol=symbol, comment=comment)
 
     def add_db_string(self, addr, size=None, terminator=None):
-        """."""
+        """Add db command at specific address with bytes converted to strings."""
         addr = MSXDisassembler._conv_pc2addr(addr)
         self._db_string[addr] = dict(size=size, terminator=terminator)
 
     def add_db_bytes(self, addr):
-        """Add address from which db gathers bytes until a symbol address is found."""
+        """Add db command at specific address that gathers bytes until a symbol address is found."""
         addr = MSXDisassembler._conv_pc2addr(addr)
         self._db_bytes.append(addr)
 
     def add_db(self, addr_beg, addr_end=None):
+        """Add db command at specific address."""
         if isinstance(addr_beg, (list, tuple)):
             for addr_ in addr_beg:
                 addr = MSXDisassembler._conv_pc2addr(addr_)
@@ -158,23 +159,27 @@ class MSXDisassembler:
                 self._db.append(addr)
 
     def add_dw(self, addr):
+        """Add dw command at specific address."""
         addr = MSXDisassembler._conv_pc2addr(addr)
         self._dw.append(addr)
 
-    def add_ins_comment(self, addr, comment):
+    def add_comment_ins(self, addr, comment):
+        """Add instruction comment at specific address."""
         addr = MSXDisassembler._conv_pc2addr(addr)
         self._ins_comments[addr] = comment
 
-    def add_line_comment(self, addr, comment):
+    def add_comment_line(self, addr, comment):
+        """Add line comment at specific address."""
         addr = MSXDisassembler._conv_pc2addr(addr)
         self._line_comments[addr] = comment
 
-    def add_skip(self, addr):
+    def add_symbol_skip(self, addr):
+        """Skip symbol replacement at specific address."""
         addr = MSXDisassembler._conv_pc2addr(addr)
         self._skip.append(addr)
 
     def print_rom_header(self, print_addr=True):
-        """."""
+        """Print ROM header."""
         text = list()
         text.append('; ROM SIZE      :' + str(len(self._memory)))
         text.append('; ROM ID        :' + self._rom_id)
@@ -237,6 +242,7 @@ class MSXDisassembler:
         return text
 
     def load_symbols(self, fname):
+        """Load symbols from file."""
         self._use_symbols = True
         with open(fname, 'r') as fp:
             data = fp.readlines()
@@ -255,7 +261,7 @@ class MSXDisassembler:
         self._symbols.update(symbols)
 
     def disassemble(self, pc=None, lastpc=None, nrbytes=None, print_addr=True):
-        """."""
+        """Disassemble code."""
         text = list()
         
         if isinstance(pc, str):
@@ -400,9 +406,7 @@ class MSXDisassembler:
             text += lines
             text.append(line)
 
-        # print lines
-        for line in text:
-            print(line)
+        MSXDisassembler.print_code(text)
 
         return text
 
@@ -423,9 +427,7 @@ class MSXDisassembler:
             spcs = ' ' * (MSXDisassembler._COMMENTPOS - len(ins_sym) - len(prefix))
             if symbol['comment'] is not None and pc_ not in self._skip:
                 comt = spcs + ' ; ' + symbol['comment']
-        line = prefix + ins_sym
-        if True:
-            line += comt
+        line = prefix + ins_sym + comt
         return line
 
     @staticmethod
