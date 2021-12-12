@@ -118,8 +118,8 @@ def disassemble(data, pc, org=0):
         step += 2
 
     if '#' in ins:
-        val = unpack('b', data[pc + step:pc + step + 1])[0]
-        ins = ins.replace('#', '%d' % (val))
+        val = unpack('B', data[pc + step:pc + step + 1])[0]
+        ins = ins.replace('#', '%02Xh' % (val))
         step += 1
 
     if '**' in ins:
@@ -130,7 +130,8 @@ def disassemble(data, pc, org=0):
         
     if '*' in ins:
         val = unpack('B', data[pc + step:pc + step + 1])[0]
-        ins = ins.replace('*', '%02Xh' % (val))
+        addr = '%02Xh' % (val)
+        ins = ins.replace('*', addr)
         step += 1
 
     if '%' in ins:
